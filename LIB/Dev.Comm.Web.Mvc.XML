@@ -1,0 +1,467 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev.Comm.Web.Mvc</name>
+    </assembly>
+    <members>
+        <member name="T:Dev.Comm.Web.Mvc.ActionResult.JsonpResult">
+            <summary>
+              Renders result as JSON and also wraps the JSON in a call
+              to the callback function specified in "JsonpResult.Callback".
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.ActionResult.JsonpResult.ExecuteResult(System.Web.Mvc.ControllerContext)">
+            <summary>
+              Enables processing of the result of an action method by a
+              custom type that inherits from <see cref="T:System.Web.Mvc.ActionResult" />.
+            </summary>
+            <param name="context"> The context within which the result is executed. </param>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.ActionResult.JsonpResult.Callback">
+            <summary>
+              Gets or sets the javascript callback function that is
+              to be invoked in the resulting script output.
+            </summary>
+            <value> The callback function name. </value>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Domain.DomainData">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Filter.NoCacheAttribute">
+            <summary>
+            加入 Cache-Control: no-cache
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Filter.CacheMaxAgeAttribute">
+            <summary>
+            Http头加入 MaxAge={}
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Filter.CacheMaxAgeAttribute.SecondMaxAge">
+            <summary>
+            过期时间 
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Filter.IfModifiedSinceAttribute">
+            <summary>
+            对Action 设置及处理304请求
+            参考 http://stackoverflow.com/questions/602104/how-return-304-status-with-fileresult-in-asp-net-mvc-rc1
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Filter.IfModifiedSinceAttribute.DateTimeSecondsAreEquals(System.DateTime,System.DateTime)">
+            <summary>
+            比较时间的秒数，由于 If-Modify-Since 返回的只是秒的时间
+            </summary>
+            <param name="t1"></param>
+            <param name="t2"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Filter.IfModifiedSinceAttribute.RelateFilePath">
+            <summary>
+            检查是否相关的文件
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Filter.IfModifiedSinceAttribute.Force304">
+            <summary>
+            强制304 ，不管文件是否已经更改
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Filter.WatchNode">
+            <summary>
+            用于存储跟踪信息的树结点，
+            其中 child 应该用 CollectBase会好些
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Filter.NameTime">
+            <summary>
+            运行时数据
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Filter.TraceRunAttribute">
+            <summary>
+            跟踪MVC Action Result 运行所用时间
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Filter.TraceRunAttribute.NewLine">
+            <summary>
+            新行
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Filter.TraceRunAttribute.TitleTemple">
+            <summary>
+            标题模板
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Filter.TraceRunAttribute.ItemTemple">
+            <summary>
+            组模板
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Filter.CshtmlTrance">
+            <summary>
+            CSHtml页面TRance
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Filter.BeginEndRequestTrace">
+            <summary>
+            对Request一次的时间进行监测
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Filter.BeginEndRequestTrace.Init(System.Web.HttpApplication,System.Boolean,System.String)">
+             <summary>
+             http://stackoverflow.com/questions/1123741/why-cant-my-host-softsyshosting-com-support-beginrequest-and-endrequest-event
+             <![CDATA[public class MySmartApp: HttpApplication{
+             public override void Init(){
+                 this.BeginRequest += new EventHandler(MvcApplication_BeginRequest);
+                this.EndRequest += new EventHandler(MvcApplication_EndRequest);
+              }
+              protected void Application_Start(){
+                  RegisterRoutes(RouteTable.Routes);
+              } 
+            }
+            or like this: 
+            public class MySmartApp: HttpApplication{
+             public MySmartApp(){
+              this.BeginRequest += new EventHandler(MvcApplication_BeginRequest);
+             this.EndRequest += new EventHandler(MvcApplication_EndRequest);
+             }
+            protected void Application_Start(){
+             RegisterRoutes(RouteTable.Routes);
+            } 
+            }
+            ]]>
+             </summary>
+             <param name="app"></param>
+            <param name="isshow">是否在页面上显示 </param>
+            <param name="newLine">使用什么换行 </param>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Filter.BeginEndRequestTraceHttpModule">
+            <summary>
+            使用IHttpModule 方式注册监听事件
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Filter.BeginEndRequestTraceHttpModuleRegister">
+            <summary>
+            Begin  End Request Trace
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Filter.BeginEndRequestTraceHttpModuleRegister.Do">
+            <summary>
+            Do it
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Filter.ErrorFilter">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Filter.ActionAllowCrossSiteJsonAttribute">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Formatter.JsonpMediaTypeFormatter">
+            <summary>
+              jsonp
+            </summary>
+        </member>
+        <!-- 对于成员“T:Dev.Comm.Web.HtmlExtensions”忽略有格式错误的 XML 注释 -->
+        <member name="T:Dev.Comm.Web.Mvc.Model.ModelHelper">
+            <summary>
+            模型帮助方法
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Model.ModelHelper.GetModel``1(System.Web.Mvc.Controller)">
+            <summary>
+            直接取得Model
+            </summary>
+            <param name="controller"></param>
+            <typeparam name="TModel"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Model.ModelHelper.GetModel(System.Web.Mvc.Controller,System.Type)">
+            <summary>
+            直接取得Model
+            </summary>
+            <param name="controller"></param>
+            <param name="modeltype"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Model.ModelHelper.GetModel``1(System.Web.Mvc.Controller,System.Boolean)">
+            <summary>
+            直接取得Model
+            </summary>
+            <param name="controller"></param>
+            <param name="ignoreModelStateError"></param>
+            <typeparam name="TModel"></typeparam>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.InvalidCastException"></exception>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Model.ModelHelper.GetModel(System.Web.Mvc.Controller,System.Type,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="controller"></param>
+            <param name="modeltype"></param>
+            <param name="ignoreModelStateError"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.InvalidCastException"></exception>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Model.ModelStateHandler">
+            <summary>
+            ModelState 的处理
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Model.ModelStateHandler.GetAllError(System.Web.Mvc.ModelStateDictionary)">
+            <summary>
+            取得 ModelState 中的全部错误
+            </summary>
+            <param name="modelState"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Model.ModelStateHandler.GetAllErrorStr(System.Web.Mvc.ModelStateDictionary,System.String,System.String)">
+            <summary>
+            取得错误字符串
+            </summary>
+            <param name="modelState"></param>
+            <param name="newline"></param>
+            <param name="template">用于展现的模板 </param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Model.ModelStateHandler.ClearError(System.Web.Mvc.ModelStateDictionary,System.String)">
+            <summary>
+            清除与Key相关的Error
+            </summary>
+            <param name="modelState"></param>
+            <param name="key"></param>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Model.ModelStateHandler.ClearAllError(System.Web.Mvc.ModelStateDictionary)">
+            <summary>
+            清除全部Error,实际上可以用 modelState.Clear();加在这里只是保持完整性罢了
+            </summary>
+            <param name="modelState"></param>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Pager.Pagination">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Pager.Pagination.#ctor(System.Int32,System.Int32,System.Int32,System.String,System.String,System.Object,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="currentPage"></param>
+            <param name="count"></param>
+            <param name="pageSize"></param>
+            <param name="action"></param>
+            <param name="controller"></param>
+            <param name="routeValues"></param>
+            <param name="pageQueryString"></param>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Pager.Pagination.#ctor(System.Int32,System.Int32,System.Int32,System.String,System.String,System.Web.Routing.RouteValueDictionary,System.String)">
+            <summary>
+            </summary>
+            <param name="currentPage"> </param>
+            <param name="count"> </param>
+            <param name="pageSize"> </param>
+            <param name="action"> </param>
+            <param name="controller"> </param>
+            <param name="routeDictionary"> </param>
+            <param name="pageQueryString"> </param>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Pager.Pagination.#ctor(System.Int32,System.Int32,System.Int32,System.Object,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="currentPage"></param>
+            <param name="count"></param>
+            <param name="pageSize"></param>
+            <param name="routeValues"></param>
+            <param name="pageQueryString"></param>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Pager.Pagination.#ctor(System.Int32,System.Int32,System.Int32,System.Web.Routing.RouteValueDictionary,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="currentPage"></param>
+            <param name="count"></param>
+            <param name="pageSize"></param>
+            <param name="routeDictionary"></param>
+            <param name="pageQueryString"></param>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Pager.Pagination.#ctor(System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+              AJAX方法调用的构造函数
+            </summary>
+            <param name="currentPage"> </param>
+            <param name="count"> </param>
+            <param name="pageSize"> </param>
+            <param name="JavascriptFun"> </param>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Pager.Pagination.Action">
+            <summary>
+            应用的Action
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Pager.Pagination.Controller">
+            <summary>
+            应用的Controller
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Pager.Pagination.CurrentPage">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Pager.Pagination.JavascriptFun">
+            <summary>
+              Javascript 方法体 ， 例如 ： @"ajaxpage({0})"
+              <![CDATA[
+             function ajaxpage(pageNo){
+                 pageSize, 条件 等从页面中取得或写成固定值。。。
+                 //  调用 Ajax 的方法 从服务器读取数据
+             }
+            ]]>
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Pager.Pagination.PageQueryString">
+            <summary>
+             Page用什么参数
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Pager.Pagination.PageSize">
+            <summary>
+            页面大小 
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Pager.Pagination.RouteValues">
+            <summary>
+            路由集合
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Pager.Pagination.Shorten">
+            <summary>
+            是否超过最大页面，然后决定截断
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Pager.Pagination.Start">
+            <summary>
+            开始
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Pager.Pagination.Stop">
+            <summary>
+            结束
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Pager.Pagination.TotalPages">
+            <summary>
+            总页数
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Routes.RouteInfo">
+            <summary>
+              Uri uri = new Uri("http://www.yoursite.com/somepage");
+              RouteInfo routeInfo = new RouteInfo(uri, HttpContext.Current.Request.ApplicationPath);
+              RouteData routeData = routeInfo.RouteData;
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.UrlHelperExtension">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Validate.CnStringLengthAttribute">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Validate.CnStringLengthAttribute.#ctor(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="maximumLength"></param>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Validate.CnStringLengthAttribute.IsValid(System.Object)">
+            <summary>
+            </summary>
+            <param name="value"> </param>
+            <returns> </returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Validate.CnStringLengthAttribute.FormatErrorMessage(System.String)">
+            <summary>
+            </summary>
+            <param name="name"> </param>
+            <returns> </returns>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Validate.CnStringLengthAttribute.GetClientValidationRules(System.Web.Mvc.ModelMetadata,System.Web.Mvc.ControllerContext)">
+            <summary>
+              When implemented in a class, returns client validation rules for that class.
+            </summary>
+            <returns> The client validation rules for this validator. </returns>
+            <param name="metadata"> The model metadata. </param>
+            <param name="context"> The controller context. </param>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Validate.CnStringLengthAttribute.MaximumLength">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.Mvc.Validate.CnStringLengthAttribute.MinimumLength">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Validate.EmailAddressAttribute">
+            <summary>
+              邮件地址
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Validate.EnforceTrueAttribute">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Validate.EnforceTrueAttribute.IsValid(System.Object)">
+            <summary>
+            </summary>
+            <param name="value"> </param>
+            <returns> </returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Validate.EnforceTrueAttribute.FormatErrorMessage(System.String)">
+            <summary>
+            </summary>
+            <param name="name"> </param>
+            <returns> </returns>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.Validate.EnforceTrueAttribute.GetClientValidationRules(System.Web.Mvc.ModelMetadata,System.Web.Mvc.ControllerContext)">
+            <summary>
+              When implemented in a class, returns client validation rules for that class.
+            </summary>
+            <returns> The client validation rules for this validator. </returns>
+            <param name="metadata"> The model metadata. </param>
+            <param name="context"> The controller context. </param>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.View.ViewToString">
+            <summary>
+              独立的ViewRender
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.View.ViewToString.PartialView(System.Web.Mvc.Controller,System.String)">
+            <summary>
+              PartialView To String
+            </summary>
+            <param name="viewName"> </param>
+            <param name="controller"> </param>
+            <returns> </returns>
+        </member>
+        <member name="M:Dev.Comm.Web.Mvc.View.ViewToString.View(System.Web.Mvc.Controller,System.String,System.String)">
+            <summary>
+              View To String
+            </summary>
+            <param name="viewName"> </param>
+            <param name="controller"> </param>
+            <param name="masterName"> default is null, use the default Master </param>
+            <returns> </returns>
+        </member>
+    </members>
+</doc>
