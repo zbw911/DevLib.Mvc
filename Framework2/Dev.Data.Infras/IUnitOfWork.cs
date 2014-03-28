@@ -8,13 +8,11 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
-
-using System.Data.Entity.Core.Objects;
-
 namespace Dev.Data.Infras
 {
     using System;
     using System.Data;
+    using System.Data.Objects;
 
     /// <summary>
     ///     The UnitOfWork interface.
@@ -58,7 +56,7 @@ namespace Dev.Data.Infras
         /// <summary>
         ///     The save changes.
         /// </summary>
-        int SaveChanges();
+        void SaveChanges();
 
         /// <summary>
         ///     The save changes.
@@ -66,7 +64,7 @@ namespace Dev.Data.Infras
         /// <param name="saveOptions">
         ///     The save options.
         /// </param>
-        int SaveChanges(SaveOptions saveOptions);
+        void SaveChanges(SaveOptions saveOptions);
 
         #endregion
     }

@@ -8,8 +8,6 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
-using System.Data.Entity.Core.Objects;
-
 namespace Dev.Data
 {
     #region
@@ -20,6 +18,7 @@ namespace Dev.Data
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.ModelConfiguration;
+    using System.Data.Objects;
     using System.Reflection;
 
     #endregion

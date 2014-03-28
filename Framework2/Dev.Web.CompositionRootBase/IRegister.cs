@@ -11,7 +11,7 @@
 namespace Dev.Web.CompositionRootBase
 {
     using Ninject;
-        
+
     public interface IRegister0
     {
         #region Public Properties

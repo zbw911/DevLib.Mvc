@@ -9,9 +9,6 @@
 // ***********************************************************************************
 
 using System.Collections;
-using System.Data.Entity.Core;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity.Infrastructure.Pluralization;
 
 namespace Dev.Data
 {
@@ -19,9 +16,12 @@ namespace Dev.Data
 
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Data.Entity;
+    using System.Data.Entity.Design.PluralizationServices;
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Migrations;
+    using System.Data.Objects;
     using System.Globalization;
     using System.Linq;
     using System.Linq.Expressions;
@@ -40,8 +40,8 @@ namespace Dev.Data
 
         private readonly string _connectionStringName;
 
-        private readonly EnglishPluralizationService _pluralizer =
-            new EnglishPluralizationService();
+        private readonly PluralizationService _pluralizer =
+            PluralizationService.CreateService(CultureInfo.GetCultureInfo("en"));
 
         private DbContext _context;
 
