@@ -204,7 +204,7 @@ namespace Dev.Data
 
         public Task<int> CountAsync()
         {
-            return CountAsync<T>();
+            return GetQuery<T>().CountAsync();
         }
 
         public Task<int> CountAsync(Expression<Func<T, bool>> criteria)

@@ -46,11 +46,10 @@
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -82,7 +81,7 @@
     <Compile Include="DoMain2\Models\SysManagerContext.cs" />
     <Compile Include="Reponsitory\CustomerRepository.cs" />
     <Compile Include="Reponsitory\IAdminRepository.cs" />
-    <Compile Include="SyncTest\UnitTest1.cs" />
+    <Compile Include="SyncTest\UnitTestAsync.cs" />
     <Compile Include="TableClassMapTest.cs" />
     <Compile Include="TestMethod1\DataSeedingInitializer.cs" />
     <Compile Include="Domain\Category.cs" />

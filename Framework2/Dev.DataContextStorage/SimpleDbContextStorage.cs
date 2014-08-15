@@ -8,10 +8,12 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using System.Data.Entity;
+
 namespace Dev.Data.ContextStorage
 {
     using System.Collections.Generic;
-    using System.Data.Entity;
+ 
 
     /// <summary>
     /// 使用 Dictionary 存储上下文
