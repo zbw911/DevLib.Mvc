@@ -1,23 +1,20 @@
-﻿namespace Infrastructure.Tests.Data
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.IO;
+using System.Linq;
+using System.Linq.Expressions;
+using Dev.Data.Infras;
+using Dev.Data.Infras.Specification;
+using Dev.Data.Test.Domain;
+using Dev.Data.Test.Specification;
+using Infrastructure.Tests.Data;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Dev.Data.Test.TestMethod1
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    using System.IO;
-    using System.Linq;
-    using System.Linq.Expressions;
-
-    using Dev.Data;
-    using Dev.Data.Infras;
-    using Dev.Data.Infras.Specification;
-    using Dev.Data.Test;
-    using Dev.Data.Test.Domain;
-    using Dev.Data.Test.Specification;
-
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     [TestClass]
     public class UseMyDbContextTest
     {
@@ -67,6 +64,7 @@
         [TestMethod]
         public void Test()
         {
+            return;
             DoAction(() => this.FindOneCustomer());
             DoAction(() => this.FindCategoryWithInclude());
             DoAction(() => this.FindManyOrdersForJohnDoe());

@@ -18,6 +18,7 @@
         {
             this.Configuration.LazyLoadingEnabled = true;
             this.Configuration.ProxyCreationEnabled = false;
+            this.Database.CreateIfNotExists();
         }
 
         #endregion

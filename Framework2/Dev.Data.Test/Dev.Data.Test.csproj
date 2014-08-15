@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dev.Data.Test</RootNamespace>
     <AssemblyName>Dev.Data.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -22,6 +22,7 @@
     <SccProvider>SAK</SccProvider>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +32,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -39,6 +41,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -71,6 +74,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CommonConfigTest.cs" />
+    <Compile Include="ContextInit.cs" />
     <Compile Include="DoMain2\Models\Admin.cs" />
     <Compile Include="DoMain2\Models\Admintype.cs" />
     <Compile Include="DoMain2\Models\Mapping\AdminMap.cs" />
@@ -78,6 +82,7 @@
     <Compile Include="DoMain2\Models\SysManagerContext.cs" />
     <Compile Include="Reponsitory\CustomerRepository.cs" />
     <Compile Include="Reponsitory\IAdminRepository.cs" />
+    <Compile Include="SyncTest\UnitTest1.cs" />
     <Compile Include="TableClassMapTest.cs" />
     <Compile Include="TestMethod1\DataSeedingInitializer.cs" />
     <Compile Include="Domain\Category.cs" />
@@ -92,17 +97,15 @@
     <Compile Include="Domain\Order.cs" />
     <Compile Include="Domain\OrderLine.cs" />
     <Compile Include="Domain\Product.cs" />
-    <Compile Include="TestMethod1\MyDbContext.cs" />
+    <Compile Include="Domain\MyDbContext.cs" />
     <Compile Include="TestMethod1\RepositoryTest.cs" />
     <Compile Include="Specification\ProductByNameSpecification.cs" />
     <Compile Include="Specification\ProductOnSaleSpecification.cs" />
-    <Compile Include="TestMethod1\UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestMethod1\UseMyDbContextTest.cs" />
     <Compile Include="TestMethod1\WithoutStorageTest.cs" />
     <Compile Include="TestContext{T}.cs" />
-    <Compile Include="Test_AdminRepository.cs" />
-    <Compile Include="UnitTest2.cs" />
+    <Compile Include="TestAdminRepository.cs" />
     <Compile Include="UnitTestMutiThread.cs" />
     <Compile Include="UnitTestExeSql.cs" />
   </ItemGroup>

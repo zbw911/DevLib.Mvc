@@ -1,4 +1,6 @@
-﻿namespace Dev.Data.Test
+﻿using Dev.Data.Test.DoMain2.Models;
+
+namespace Dev.Data.Test
 {
     using System;
     using System.IO;
@@ -23,8 +25,27 @@
         // 编写测试时，可以使用以下附加特性:
         //
         // 在运行类中的第一个测试之前使用 ClassInitialize 运行代码
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
+        [ClassInitialize()]
+        public static void MyClassInitialize(TestContext testContext)
+        {
+
+            ContextInit.Init();
+            //AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""));
+
+            ////DbContextManager.InitStorage(new SimpleDbContextStorage());
+
+            //CommonConfig.Instance()
+            //            .ConfigureDbContextStorage(new SimpleDbContextStorage())
+            //            .ConfigureData<MyDbContext>("DefaultConnection")
+            //            .ConfigureData<MyDbContext>("DefaultConnection1");
+
+            ////config.ConfigureData<MyDbContext>("DefaultConnection");
+
+            customerRepository = new CustomerRepository("DefaultConnection");
+
+
+
+        }
         //
         // 在类中的所有测试都已运行之后使用 ClassCleanup 运行代码
         // [ClassCleanup()]
@@ -41,7 +62,7 @@
 
         #region Fields
 
-        private ICustomerRepository customerRepository;
+        private static ICustomerRepository customerRepository;
 
         #endregion
 
@@ -60,30 +81,19 @@
         [TestMethod]
         public void TestMethod1()
         {
-            AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""));
 
-            //DbContextManager.InitStorage(new SimpleDbContextStorage());
-
-            CommonConfig.Instance()
-                        .ConfigureDbContextStorage(new SimpleDbContextStorage())
-                        .ConfigureData<MyDbContext>("DefaultConnection")
-                        .ConfigureData<MyDbContext>("DefaultConnection1");
-
-            //config.ConfigureData<MyDbContext>("DefaultConnection");
-
-            this.customerRepository = new CustomerRepository("DefaultConnection");
             for (int i = 0; i < 10; i++)
             {
-                this.customerRepository.Add(
+                customerRepository.Add(
                     new Customer { Firstname = "zbw911", Inserted = DateTime.Now, Lastname = "null" });
             }
 
-            int list = this.customerRepository.GetQuery<Customer>().Count();
-            this.customerRepository.UnitOfWork.SaveChanges();
+            int list = customerRepository.GetQuery<Customer>().Count();
+            customerRepository.UnitOfWork.SaveChanges();
             Console.WriteLine(list);
 
 
-            var v = this.customerRepository.GetQuery<Customer>().AsEnumerable();
+            var v = customerRepository.GetQuery<Customer>().AsEnumerable();
 
             foreach (var customer in v)
             {
@@ -98,31 +108,21 @@
         [TestMethod]
         public void TestDomainAndDomain2()
         {
-            AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""));
-
-            //DbContextManager.InitStorage(new SimpleDbContextStorage());
-
-            CommonConfig.Instance()
-                        .ConfigureDbContextStorage(new SimpleDbContextStorage())
-                        .ConfigureData<MyDbContext>("DefaultConnection")
-                        .ConfigureData<SysManagerContext>("DefaultConnection1");
 
             //config.ConfigureData<MyDbContext>("DefaultConnection");
 
-            this.customerRepository = new CustomerRepository("DefaultConnection");
+            customerRepository = new CustomerRepository("DefaultConnection");
             for (int i = 0; i < 10; i++)
             {
-                this.customerRepository.Add(
+                customerRepository.Add(
                     new Customer { Firstname = "zbw911", Inserted = DateTime.Now, Lastname = "null" });
             }
 
-            int list = this.customerRepository.GetQuery<Customer>().Count();
-            this.customerRepository.UnitOfWork.SaveChanges();
+            int list = customerRepository.GetQuery<Customer>().Count();
+            customerRepository.UnitOfWork.SaveChanges();
             Console.WriteLine(list);
 
-            //
-            // TODO: 在此处添加测试逻辑
-            //
+
         }
 
         #endregion

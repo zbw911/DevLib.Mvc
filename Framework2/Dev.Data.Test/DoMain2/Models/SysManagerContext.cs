@@ -1,19 +1,29 @@
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+using Dev.Demo.Entities2.Models;
 using Dev.Demo.Entities2.Models.Mapping;
 
-namespace Dev.Demo.Entities2.Models
+namespace Dev.Data.Test.DoMain2.Models
 {
     public partial class SysManagerContext : DbContext
     {
         static SysManagerContext()
         {
+
             Database.SetInitializer<SysManagerContext>(null);
         }
 
         public SysManagerContext()
             : base()
         {
+            //this.Database.CreateIfNotExists();
+        }
+
+        public SysManagerContext(string connStringName)
+            : base(connStringName)
+        {
+            this.Configuration.LazyLoadingEnabled = true;
+            this.Configuration.ProxyCreationEnabled = false;
+            this.Database.CreateIfNotExists();
         }
 
         public DbSet<Admin> Admins { get; set; }
@@ -27,5 +37,5 @@ namespace Dev.Demo.Entities2.Models
         }
     }
 
-     
+
 }

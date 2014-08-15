@@ -1,21 +1,19 @@
-﻿namespace Infrastructure.Tests.Data
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.IO;
+using System.Linq;
+using System.Linq.Expressions;
+using Dev.Data.ContextStorage;
+using Dev.Data.Infras;
+using Dev.Data.Infras.Specification;
+using Dev.Data.Test.Domain;
+using Dev.Data.Test.Specification;
+using Infrastructure.Tests.Data;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Dev.Data.Test.TestMethod1
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Entity;
-    using System.IO;
-    using System.Linq;
-    using System.Linq.Expressions;
-
-    using Dev.Data;
-    using Dev.Data.ContextStorage;
-    using Dev.Data.Infras;
-    using Dev.Data.Infras.Specification;
-    using Dev.Data.Test.Domain;
-    using Dev.Data.Test.Specification;
-
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     /// <summary>
     ///     This class is used to test the _lab_ version of repository implementation
     /// </summary>
@@ -35,10 +33,10 @@
         [TestInitialize]
         public void SetUp()
         {
-            AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""));
-
-            DbContextManager.InitStorage(new SimpleDbContextStorage());
-            DbContextManager.Init("DefaultConnection", new[] { "Dev.Data.Test" }, true);
+            //AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""));
+            ContextInit.Init();
+            //DbContextManager.InitStorage(new SimpleDbContextStorage());
+            //DbContextManager.Init("DefaultConnection", new[] { "Dev.Data.Test" }, true);
 
             this.customerRepository = new CustomerRepository("DefaultConnection");
             this.repository = new GenericRepository("DefaultConnection");
@@ -53,6 +51,7 @@
         [TestMethod]
         public void Test()
         {
+            return;
             DoAction(() => this.CreateCustomer());
             DoAction(() => this.CreateProducts());
             DoAction(() => this.AddOrders());

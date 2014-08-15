@@ -18,6 +18,7 @@ namespace Dev.Data.Test
     using Infrastructure.Tests.Data;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Dev.Data.Configuration;
 
     /// <summary>
     ///     TableClassMapTest 的摘要说明
@@ -45,16 +46,20 @@ namespace Dev.Data.Test
 
         #region Public Methods and Operators
 
+
+       [ClassInitialize()]
+        public static void ClassInitialize(TestContext TestContext)
+       {
+           ContextInit.Init();
+       }
+
         [TestInitialize]
         public void SetUp()
         {
             Console.WriteLine(this.TestContext.TestRunDirectory);
             Console.WriteLine(this.TestContext.TestDir);
             Console.WriteLine(this.TestContext.TestDeploymentDir);
-            AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""));
 
-            DbContextManager.InitStorage(new SimpleDbContextStorage());
-            DbContextManager.Init("DefaultDb", new[] { "Dev.Data.Test" }, true);
 
             this.customerRepository = new CustomerRepository("DefaultConnection");
             this.repository = new GenericRepository("DefaultConnection");

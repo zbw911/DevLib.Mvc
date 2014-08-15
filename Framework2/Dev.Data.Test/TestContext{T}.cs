@@ -19,6 +19,18 @@ namespace Dev.Data.Test
     [TestClass]
     public class TestContext_T
     {
+
+        [ClassInitialize]
+        public static void CalssInit(TestContext testcontext)
+        {
+            //AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""));
+
+            //DbContextManager.InitStorage(new SimpleDbContextStorage());
+            //DbContextManager.Init("DefaultDb", new[] { "Dev.Data.Test" }, true);
+
+            ContextInit.Init();
+        }
+
         #region Fields
 
         private ICustomerRepository customerRepository;
@@ -58,11 +70,6 @@ namespace Dev.Data.Test
         [TestInitialize]
         public void SetUp()
         {
-            AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""));
-
-            DbContextManager.InitStorage(new SimpleDbContextStorage());
-            //DbContextManager.Init("DefaultDb", new[] { "Dev.Data.Test" }, true);
-
             this.customerRepository = new CustomerRepository("DefaultConnection");
             this.repository = new GenericRepository("DefaultConnection");
         }

@@ -5,6 +5,7 @@ using System.Threading;
 using Dev.Data.Configuration;
 using Dev.Data.ContextStorage;
 using Dev.Data.Test.Domain;
+using Dev.Data.Test.DoMain2.Models;
 using Dev.Demo.Entities2.Models;
 using Infrastructure.Tests.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,17 +16,27 @@ namespace Dev.Data.Test
     public class UnitTestMutiThread
     {
         private CustomerRepository customerRepository;
+        [ClassInitialize]
+        public static void ClassInit(TestContext tc)
+        {
+            //AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""));
+
+            ////DbContextManager.InitStorage(new SimpleDbContextStorage());
+
+            //CommonConfig.Instance()
+            //    .ConfigureDbContextStorage(new ThreadDbContextStorage())
+            //    .ConfigureData<MyDbContext>("DefaultConnection")
+            //    .ConfigureData<SysManagerContext>("DefaultConnection1");
+
+
+            ContextInit.Init();
+        }
+
+
         [TestInitialize]
         public void Init()
         {
-            AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""));
 
-            //DbContextManager.InitStorage(new SimpleDbContextStorage());
-
-            CommonConfig.Instance()
-                .ConfigureDbContextStorage(new ThreadDbContextStorage())
-                .ConfigureData<MyDbContext>("DefaultConnection")
-                .ConfigureData<SysManagerContext>("DefaultConnection1");
 
             //config.ConfigureData<MyDbContext>("DefaultConnection");
 
@@ -43,7 +54,7 @@ namespace Dev.Data.Test
             }
 
 
-            Thread.Sleep(20 * 1000);
+            //Thread.Sleep(20 * 1000);
 
         }
 

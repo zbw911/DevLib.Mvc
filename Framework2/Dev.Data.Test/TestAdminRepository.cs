@@ -2,6 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+using Dev.Data.Test.DoMain2.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Dev.Data.Test
@@ -20,17 +21,17 @@ namespace Dev.Data.Test
     /// Test_AdminRepository 的摘要说明
     /// </summary>
     [TestClass]
-    public class Test_AdminRepository
+    public class TestAdminRepository
     {
-        public Test_AdminRepository()
+        public TestAdminRepository()
         {
             //
             //TODO: 在此处添加构造函数逻辑
             //
         }
 
-        private IAdminRepository AdminRepository;
-        private TestContext testContextInstance;
+        private static IAdminRepository _adminRepository;
+        private TestContext _testContextInstance;
 
         /// <summary>
         ///获取或设置测试上下文，该上下文提供
@@ -40,11 +41,11 @@ namespace Dev.Data.Test
         {
             get
             {
-                return testContextInstance;
+                return _testContextInstance;
             }
             set
             {
-                testContextInstance = value;
+                _testContextInstance = value;
             }
         }
 
@@ -57,7 +58,18 @@ namespace Dev.Data.Test
         public static void MyClassInitialize(TestContext testContext)
         {
 
+            //AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""));
 
+            ////DbContextManager.InitStorage(new SimpleDbContextStorage());
+
+            //CommonConfig.Instance()
+            //            .ConfigureDbContextStorage(new SimpleDbContextStorage())
+            //            .ConfigureData<MyDbContext>("DefaultConnection")
+            //            .ConfigureData<SysManagerContext>("DefaultConnection1");
+
+            //config.ConfigureData<MyDbContext>("DefaultConnection");
+            ContextInit.Init();
+            _adminRepository = new AdminRepository("DefaultConnection1");
         }
 
         // 在类中的所有测试都已运行之后使用 ClassCleanup 运行代码
@@ -69,18 +81,7 @@ namespace Dev.Data.Test
         public void MyTestInitialize()
         {
 
-            AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""));
 
-            //DbContextManager.InitStorage(new SimpleDbContextStorage());
-
-            CommonConfig.Instance()
-                        .ConfigureDbContextStorage(new SimpleDbContextStorage())
-                        .ConfigureData<MyDbContext>("DefaultConnection")
-                        .ConfigureData<SysManagerContext>("DefaultConnection1");
-
-            //config.ConfigureData<MyDbContext>("DefaultConnection");
-
-            this.AdminRepository = new AdminRepository("DefaultConnection1");
         }
 
         // 在每个测试运行完之后，使用 TestCleanup 来运行代码
@@ -92,17 +93,25 @@ namespace Dev.Data.Test
         [TestMethod]
         public void TestMethod1()
         {
-            //this.AdminRepository.AddAdmin(1, "aa", "bb", "cc@1.com");
-            this.AdminRepository.GetAll();
+            //AdminRepository.AddAdmin(1, "aa", "bb", "cc@1.com");
+            _adminRepository.GetAll();
         }
 
 
 
-
         [TestMethod]
+        public void AllTest()
+        {
+            Test_Create_Db();
+
+
+            DropDatabase();
+        }
+
+
         public void Test_Create_Db()
         {
-            //this.AdminRepository.AddAdmin(1, "aa", "bb", "cc@1.com");
+            //AdminRepository.AddAdmin(1, "aa", "bb", "cc@1.com");
 
 
 
@@ -114,12 +123,12 @@ namespace Dev.Data.Test
             }
 
 
-            this.AdminRepository.GetAll();
+            _adminRepository.GetAll();
             DbContextManager.CloseAllDbContexts();
             //context.Database.Delete();
         }
 
-        [TestMethod]
+
         public void DropDatabase()
         {
             var context = DbContextManager.CurrentFor("DefaultConnection1");

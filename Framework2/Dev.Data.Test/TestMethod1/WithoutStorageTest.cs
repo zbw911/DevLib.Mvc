@@ -35,7 +35,7 @@
         [TestInitialize]
         public void SetUp()
         {
-            var builder = new DbContextBuilder<DbContext>("DefaultDb", new[] { "Infrastructure.Tests" }, true, true);
+            var builder = new DbContextBuilder<DbContext>("DefaultDb", new[] { "Dev.Data.Test" }, true, true);
             this.context = builder.BuildDbContext();
 
             this.customerRepository = new CustomerRepository(this.context);
