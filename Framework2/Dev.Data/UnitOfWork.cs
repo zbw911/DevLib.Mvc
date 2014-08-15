@@ -9,6 +9,7 @@
 // ***********************************************************************************
 
 using System.Data.Entity.Core.Objects;
+using System.Threading.Tasks;
 
 namespace Dev.Data
 {
@@ -130,6 +131,16 @@ namespace Dev.Data
             return ((IObjectContextAdapter)this._dbContext).ObjectContext.SaveChanges();
         }
 
+
+        public Task<int> SaveChangesAsync()
+        {
+            if (this.IsInTransaction)
+            {
+                throw new ApplicationException("A transaction is running. Call CommitTransaction instead.");
+            }
+            return ((IObjectContextAdapter)this._dbContext).ObjectContext.SaveChangesAsync();
+        }
+
         public int SaveChanges(SaveOptions saveOptions)
         {
             if (this.IsInTransaction)
@@ -138,6 +149,15 @@ namespace Dev.Data
             }
 
             return ((IObjectContextAdapter)this._dbContext).ObjectContext.SaveChanges(saveOptions);
+        }
+        public Task<int> SaveChangesAsync(SaveOptions saveOptions)
+        {
+            if (this.IsInTransaction)
+            {
+                throw new ApplicationException("A transaction is running. Call CommitTransaction instead.");
+            }
+
+            return ((IObjectContextAdapter)this._dbContext).ObjectContext.SaveChangesAsync(saveOptions);
         }
 
         #endregion

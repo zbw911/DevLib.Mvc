@@ -12,6 +12,7 @@ using System.Collections;
 using System.Data.Entity.Core;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure.Pluralization;
+using System.Threading.Tasks;
 
 namespace Dev.Data
 {
@@ -148,6 +149,9 @@ namespace Dev.Data
             this.DbContext.Set<TEntity>().Add(entity);
         }
 
+
+
+
         public void Attach<TEntity>(TEntity entity) where TEntity : class
         {
             if (entity == null)
@@ -156,11 +160,16 @@ namespace Dev.Data
             }
 
             this.DbContext.Set<TEntity>().Attach(entity);
+
         }
 
         public int Count<TEntity>() where TEntity : class
         {
             return this.GetQuery<TEntity>().Count();
+        }
+        public Task<int> CountAsync<TEntity>() where TEntity : class
+        {
+            return this.GetQuery<TEntity>().CountAsync();
         }
 
         public int Count<TEntity>(Expression<Func<TEntity, bool>> criteria) where TEntity : class
@@ -168,11 +177,19 @@ namespace Dev.Data
             return this.GetQuery<TEntity>().Count(criteria);
         }
 
+        public Task<int> CountAsync<TEntity>(Expression<Func<TEntity, bool>> criteria) where TEntity : class
+        {
+            return this.GetQuery<TEntity>().CountAsync(criteria);
+        }
+
         public int Count<TEntity>(ISpecification<TEntity> criteria) where TEntity : class
         {
             return criteria.SatisfyingEntitiesFrom(this.GetQuery<TEntity>()).Count();
         }
-
+        public Task<int> CountAsync<TEntity>(ISpecification<TEntity> criteria) where TEntity : class
+        {
+            return criteria.SatisfyingEntitiesFrom(this.GetQuery<TEntity>()).CountAsync();
+        }
         public void Delete<TEntity>(TEntity entity) where TEntity : class
         {
             if (entity == null)
@@ -216,9 +233,19 @@ namespace Dev.Data
             return this.GetQuery<TEntity>().Where(criteria).FirstOrDefault();
         }
 
+        public Task<TEntity> FindOneAsync<TEntity>(Expression<Func<TEntity, bool>> criteria) where TEntity : class
+        {
+            return this.GetQuery<TEntity>().Where(criteria).FirstOrDefaultAsync();
+        }
+
         public TEntity FindOne<TEntity>(ISpecification<TEntity> criteria) where TEntity : class
         {
             return criteria.SatisfyingEntityFrom(this.GetQuery<TEntity>());
+        }
+
+        public Task<TEntity> FindOneAsync<TEntity>(ISpecification<TEntity> criteria) where TEntity : class
+        {
+            return criteria.SatisfyingEntityFromAsync(this.GetQuery<TEntity>());
         }
 
         public TEntity First<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
@@ -226,9 +253,19 @@ namespace Dev.Data
             return this.GetQuery<TEntity>().First(predicate);
         }
 
+        public Task<TEntity> FirstAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
+        {
+            return this.GetQuery<TEntity>().FirstAsync(predicate);
+        }
+
         public TEntity First<TEntity>(ISpecification<TEntity> criteria) where TEntity : class
         {
             return criteria.SatisfyingEntitiesFrom(this.GetQuery<TEntity>()).First();
+        }
+
+        public Task<TEntity> FirstAsync<TEntity>(ISpecification<TEntity> criteria) where TEntity : class
+        {
+            return criteria.SatisfyingEntitiesFrom(this.GetQuery<TEntity>()).FirstAsync();
         }
 
         public IEnumerable<TEntity> Get<TEntity, TOrderBy>(
@@ -254,6 +291,29 @@ namespace Dev.Data
                     .AsEnumerable();
         }
 
+        public Task<List<TEntity>> GetAsync<TEntity, TOrderBy>(
+            Expression<Func<TEntity, TOrderBy>> orderBy,
+            int pageIndex,
+            int pageSize,
+            SortOrder sortOrder = SortOrder.Ascending) where TEntity : class
+        {
+            if (sortOrder == SortOrder.Ascending)
+            {
+                return
+                    this.GetQuery<TEntity>()
+                        .OrderBy(orderBy)
+                        .Skip((pageIndex - 1) * pageSize)
+                        .Take(pageSize).ToListAsync();
+
+            }
+            return
+                this.GetQuery<TEntity>()
+                    .OrderByDescending(orderBy)
+                    .Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize).ToListAsync();
+
+        }
+
         public IEnumerable<TEntity> Get<TEntity, TOrderBy>(
             Expression<Func<TEntity, bool>> criteria,
             Expression<Func<TEntity, TOrderBy>> orderBy,
@@ -272,6 +332,25 @@ namespace Dev.Data
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize)
                     .AsEnumerable();
+        }
+        public Task<List<TEntity>> GetAsync<TEntity, TOrderBy>(
+          Expression<Func<TEntity, bool>> criteria,
+          Expression<Func<TEntity, TOrderBy>> orderBy,
+          int pageIndex,
+          int pageSize,
+          SortOrder sortOrder = SortOrder.Ascending) where TEntity : class
+        {
+            if (sortOrder == SortOrder.Ascending)
+            {
+                return
+                    GetQuery(criteria).OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+            }
+            return
+                GetQuery(criteria)
+                    .OrderByDescending(orderBy)
+                    .Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
         }
 
         public IEnumerable<TEntity> Get<TEntity, TOrderBy>(
@@ -298,9 +377,37 @@ namespace Dev.Data
                              .AsEnumerable();
         }
 
+        public Task<List<TEntity>> GetAsync<TEntity, TOrderBy>(
+            ISpecification<TEntity> specification,
+            Expression<Func<TEntity, TOrderBy>> orderBy,
+            int pageIndex,
+            int pageSize,
+            SortOrder sortOrder = SortOrder.Ascending) where TEntity : class
+        {
+            if (sortOrder == SortOrder.Ascending)
+            {
+                return
+                    specification.SatisfyingEntitiesFrom(this.GetQuery<TEntity>())
+                                 .OrderBy(orderBy)
+                                 .Skip((pageIndex - 1) * pageSize)
+                                 .Take(pageSize)
+                                 .ToListAsync();
+            }
+            return
+                specification.SatisfyingEntitiesFrom(this.GetQuery<TEntity>())
+                             .OrderByDescending(orderBy)
+                             .Skip((pageIndex - 1) * pageSize)
+                             .Take(pageSize)
+                             .ToListAsync();
+        }
+
         public IEnumerable<TEntity> GetAll<TEntity>() where TEntity : class
         {
             return this.GetQuery<TEntity>().AsEnumerable();
+        }
+        public Task<List<TEntity>> GetAllAsync<TEntity>() where TEntity : class
+        {
+            return this.GetQuery<TEntity>().ToListAsync();
         }
 
         public TEntity GetByKey<TEntity>(object keyValue) where TEntity : class
@@ -387,6 +494,12 @@ namespace Dev.Data
         {
             return this.DbContext.Database.ExecuteSqlCommand(sql, parameters);
         }
+        public Task<int> ExecuteSqlCommandAsync(string sql, params object[] parameters)
+        {
+            return this.DbContext.Database.ExecuteSqlCommandAsync(sql, parameters);
+        }
+
+
 
 
 
@@ -401,21 +514,39 @@ namespace Dev.Data
             return criteria.SatisfyingEntitiesFrom(this.GetQuery<TEntity>());
         }
 
-        public TEntity Save<TEntity>(TEntity entity) where TEntity : class
+        public int Save<TEntity>(TEntity entity) where TEntity : class
         {
             this.Add(entity);
-            this.DbContext.SaveChanges();
-            return entity;
+            return this.DbContext.SaveChanges();
+
         }
+        public Task<int> SaveAsync<TEntity>(TEntity entity) where TEntity : class
+        {
+            this.Add(entity);
+            return this.DbContext.SaveChangesAsync();
+            //return entity;
+        }
+
+
+
 
         public TEntity Single<TEntity>(Expression<Func<TEntity, bool>> criteria) where TEntity : class
         {
             return this.GetQuery<TEntity>().Single<TEntity>(criteria);
         }
 
+        public Task<TEntity> SingleAsync<TEntity>(Expression<Func<TEntity, bool>> criteria) where TEntity : class
+        {
+            return this.GetQuery<TEntity>().SingleAsync<TEntity>(criteria);
+        }
+
         public TEntity Single<TEntity>(ISpecification<TEntity> criteria) where TEntity : class
         {
             return criteria.SatisfyingEntityFrom(this.GetQuery<TEntity>());
+        }
+        public Task<TEntity> SingleAsync<TEntity>(ISpecification<TEntity> criteria) where TEntity : class
+        {
+            return criteria.SatisfyingEntityFromAsync(this.GetQuery<TEntity>());
         }
 
         public void Update<TEntity>(TEntity entity) where TEntity : class
@@ -431,6 +562,9 @@ namespace Dev.Data
 
             this.DbContext.Set<TEntity>().AddOrUpdate(entity);
         }
+
+
+
 
         #endregion
 
@@ -456,4 +590,6 @@ namespace Dev.Data
 
         #endregion
     }
+
+
 }

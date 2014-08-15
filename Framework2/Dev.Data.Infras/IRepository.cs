@@ -9,6 +9,7 @@
 // ***********************************************************************************
 
 using System.Collections;
+using System.Threading.Tasks;
 
 namespace Dev.Data.Infras
 {
@@ -232,14 +233,6 @@ namespace Dev.Data.Infras
         IQueryable<TEntity> GetQuery<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;
 
         /// <summary>
-        ///     Gets the query.
-        /// </summary>
-        /// <typeparam name="TEntity">The type of the entity.</typeparam>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns></returns>
-        IQueryable<TEntity> GetQuery<TEntity>(ISpecification<TEntity> criteria) where TEntity : class;
-
-        /// <summary>
         ///     Gets one entity based on matching criteria
         /// </summary>
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
@@ -292,5 +285,40 @@ namespace Dev.Data.Infras
 
 
         #endregion
+
+        Task<int> CountAsync<TEntity>() where TEntity : class;
+        Task<int> CountAsync<TEntity>(Expression<Func<TEntity, bool>> criteria) where TEntity : class;
+        Task<int> CountAsync<TEntity>(ISpecification<TEntity> criteria) where TEntity : class;
+        Task<TEntity> FindOneAsync<TEntity>(Expression<Func<TEntity, bool>> criteria) where TEntity : class;
+        Task<TEntity> FindOneAsync<TEntity>(ISpecification<TEntity> criteria) where TEntity : class;
+        Task<TEntity> FirstAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;
+        Task<TEntity> FirstAsync<TEntity>(ISpecification<TEntity> criteria) where TEntity : class;
+
+        Task<List<TEntity>> GetAsync<TEntity, TOrderBy>(
+            Expression<Func<TEntity, TOrderBy>> orderBy,
+            int pageIndex,
+            int pageSize,
+            SortOrder sortOrder = SortOrder.Ascending) where TEntity : class;
+
+        Task<List<TEntity>> GetAsync<TEntity, TOrderBy>(
+            Expression<Func<TEntity, bool>> criteria,
+            Expression<Func<TEntity, TOrderBy>> orderBy,
+            int pageIndex,
+            int pageSize,
+            SortOrder sortOrder = SortOrder.Ascending) where TEntity : class;
+
+        Task<List<TEntity>> GetAsync<TEntity, TOrderBy>(
+            ISpecification<TEntity> specification,
+            Expression<Func<TEntity, TOrderBy>> orderBy,
+            int pageIndex,
+            int pageSize,
+            SortOrder sortOrder = SortOrder.Ascending) where TEntity : class;
+
+        Task<List<TEntity>> GetAllAsync<TEntity>() where TEntity : class;
+        IQueryable<TEntity> GetQuery<TEntity>(ISpecification<TEntity> criteria) where TEntity : class;
+        Task<TEntity> SingleAsync<TEntity>(Expression<Func<TEntity, bool>> criteria) where TEntity : class;
+        Task<TEntity> SingleAsync<TEntity>(ISpecification<TEntity> criteria) where TEntity : class;
+        Task<int> SaveAsync<TEntity>(TEntity entity) where TEntity : class;
+        int Save<TEntity>(TEntity entity) where TEntity : class;
     }
 }

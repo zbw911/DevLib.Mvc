@@ -10,6 +10,7 @@
 
 
 using System.Data.Entity.Core.Objects;
+using System.Threading.Tasks;
 
 namespace Dev.Data.Infras
 {
@@ -69,5 +70,8 @@ namespace Dev.Data.Infras
         int SaveChanges(SaveOptions saveOptions);
 
         #endregion
+
+        Task<int> SaveChangesAsync();
+        Task<int> SaveChangesAsync(SaveOptions saveOptions);
     }
 }

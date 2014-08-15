@@ -8,6 +8,9 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using System.Data.Entity;
+using System.Threading.Tasks;
+
 namespace Dev.Data.Infras.Specification
 {
     using System;
@@ -131,6 +134,11 @@ namespace Dev.Data.Infras.Specification
         public TEntity SatisfyingEntityFrom(IQueryable<TEntity> query)
         {
             return query.Where(this.Predicate).SingleOrDefault();
+        }
+
+        public Task<TEntity> SatisfyingEntityFromAsync(IQueryable<TEntity> query)
+        {
+            return query.SingleOrDefaultAsync(this.Predicate);
         }
 
         #endregion

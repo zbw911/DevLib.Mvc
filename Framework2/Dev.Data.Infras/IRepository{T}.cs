@@ -8,6 +8,8 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using System.Threading.Tasks;
+
 namespace Dev.Data.Infras
 {
     using System;
@@ -148,7 +150,7 @@ namespace Dev.Data.Infras
         /// <param name="pageSize">Size of the page.</param>
         /// <param name="sortOrder">The sort order.</param>
         /// <returns></returns>
-        IEnumerable<TEntity> Get<TOrderBy>(Expression<Func<TEntity, TOrderBy>> orderBy,int pageIndex,int pageSize,
+        IEnumerable<TEntity> Get<TOrderBy>(Expression<Func<TEntity, TOrderBy>> orderBy, int pageIndex, int pageSize,
             SortOrder sortOrder = SortOrder.Ascending);
 
         /// <summary>
@@ -250,5 +252,47 @@ namespace Dev.Data.Infras
         void Update(TEntity entity);
 
         #endregion
+
+
+
+        Task<int> CountAsync();
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> criteria);
+        Task<int> CountAsync(ISpecification<TEntity> criteria);
+        Task<TEntity> FindOneAsync(Expression<Func<TEntity, bool>> criteria);
+        Task<TEntity> FindOneAsync(ISpecification<TEntity> criteria);
+        Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity> FirstAsync(ISpecification<TEntity> criteria);
+
+        Task<List<TEntity>> GetAsync<TOrderBy>(
+            Expression<Func<TEntity, TOrderBy>> orderBy,
+            int pageIndex,
+            int pageSize,
+            SortOrder sortOrder = SortOrder.Ascending);
+
+        Task<List<TEntity>> GetAsync<TOrderBy>(
+            Expression<Func<TEntity, bool>> criteria,
+            Expression<Func<TEntity, TOrderBy>> orderBy,
+            int pageIndex,
+            int pageSize,
+            SortOrder sortOrder = SortOrder.Ascending);
+
+        Task<List<TEntity>> GetAsync<TOrderBy>(
+            ISpecification<TEntity> specification,
+            Expression<Func<TEntity, TOrderBy>> orderBy,
+            int pageIndex,
+            int pageSize,
+            SortOrder sortOrder = SortOrder.Ascending);
+
+        Task<List<TEntity>> GetAllAsync();
+
+        Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> criteria);
+        Task<TEntity> SingleAsync(ISpecification<TEntity> criteria);
+        Task<int> SaveAsync(TEntity entity);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        int Save(TEntity entity);
     }
 }

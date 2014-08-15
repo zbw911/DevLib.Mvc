@@ -8,6 +8,9 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using System.Data.Entity;
+using System.Threading.Tasks;
+
 namespace Dev.Data.Infras.Specification
 {
     using System.Linq;
@@ -67,6 +70,11 @@ namespace Dev.Data.Infras.Specification
         public override TEntity SatisfyingEntityFrom(IQueryable<TEntity> query)
         {
             return this.SatisfyingEntitiesFrom(query).FirstOrDefault();
+        }
+
+        public override Task<TEntity> SatisfyingEntityFromAsync(IQueryable<TEntity> query)
+        {
+            return this.SatisfyingEntitiesFrom(query).FirstOrDefaultAsync();
         }
 
         #endregion

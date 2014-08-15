@@ -8,6 +8,8 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using System.Threading.Tasks;
+
 namespace Dev.Data.Infras.Specification
 {
     using System.Linq;
@@ -74,6 +76,9 @@ namespace Dev.Data.Infras.Specification
         ///     The <see cref="TEntity" />.
         /// </returns>
         public abstract TEntity SatisfyingEntityFrom(IQueryable<TEntity> query);
+
+        public abstract Task<TEntity> SatisfyingEntityFromAsync(IQueryable<TEntity> query);
+
 
         #endregion
     }

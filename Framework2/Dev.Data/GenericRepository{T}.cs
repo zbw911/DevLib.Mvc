@@ -8,6 +8,8 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using System.Threading.Tasks;
+
 namespace Dev.Data
 {
     using System;
@@ -33,7 +35,7 @@ namespace Dev.Data
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="GenericRepository&lt;TEntity&gt;" /> class.
+        ///     Initializes a new instance of the <see cref="GenericRepository&lt;T&gt;" /> class.
         /// </summary>
         /// <param name="connectionStringName">Name of the connection string.</param>
         public GenericRepository(string connectionStringName)
@@ -42,7 +44,7 @@ namespace Dev.Data
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="GenericRepository&lt;TEntity&gt;" /> class.
+        ///     Initializes a new instance of the <see cref="GenericRepository&lt;T&gt;" /> class.
         /// </summary>
         /// <param name="context">The context.</param>
         public GenericRepository(DbContext context)
@@ -198,6 +200,82 @@ namespace Dev.Data
         public void Update(T entity)
         {
             this.Update<T>(entity);
+        }
+
+        public Task<int> CountAsync()
+        {
+            return CountAsync<T>();
+        }
+
+        public Task<int> CountAsync(Expression<Func<T, bool>> criteria)
+        {
+            return CountAsync<T>(criteria);
+        }
+
+        public Task<int> CountAsync(ISpecification<T> criteria)
+        {
+            return CountAsync<T>(criteria);
+        }
+
+        public Task<T> FindOneAsync(Expression<Func<T, bool>> criteria)
+        {
+            return FindOneAsync<T>(criteria);
+        }
+
+        public Task<T> FindOneAsync(ISpecification<T> criteria)
+        {
+            return FindOneAsync<T>(criteria);
+        }
+
+        public Task<T> FirstAsync(Expression<Func<T, bool>> predicate)
+        {
+            return FirstAsync<T>(predicate);
+        }
+
+        public Task<T> FirstAsync(ISpecification<T> criteria)
+        {
+            return FirstAsync<T>(criteria);
+        }
+
+        public Task<List<T>> GetAsync<TOrderBy>(Expression<Func<T, TOrderBy>> orderBy, int pageIndex, int pageSize, SortOrder sortOrder = SortOrder.Ascending)
+        {
+            return GetAsync<T, TOrderBy>(orderBy, pageIndex, pageSize, sortOrder);
+        }
+
+        public Task<List<T>> GetAsync<TOrderBy>(Expression<Func<T, bool>> criteria, Expression<Func<T, TOrderBy>> orderBy, int pageIndex, int pageSize,
+            SortOrder sortOrder = SortOrder.Ascending)
+        {
+            return GetAsync<T, TOrderBy>(criteria, orderBy, pageIndex, pageSize, sortOrder);
+        }
+
+        public Task<List<T>> GetAsync<TOrderBy>(ISpecification<T> specification, Expression<Func<T, TOrderBy>> orderBy, int pageIndex, int pageSize,
+            SortOrder sortOrder = SortOrder.Ascending)
+        {
+            return GetAsync<T, TOrderBy>(specification, orderBy, pageIndex, pageSize, sortOrder);
+        }
+
+        public Task<List<T>> GetAllAsync()
+        {
+            return GetAllAsync<T>();
+        }
+
+        public Task<T> SingleAsync(Expression<Func<T, bool>> criteria)
+        {
+            return SingleAsync<T>(criteria);
+        }
+
+        public Task<T> SingleAsync(ISpecification<T> criteria)
+        {
+            return SingleAsync<T>(criteria);
+        }
+
+        public Task<int> SaveAsync(T entity)
+        {
+            return SaveAsync<T>(entity);
+        }
+        public int Save(T entity)
+        {
+            return Save<T>(entity);
         }
 
         #endregion
