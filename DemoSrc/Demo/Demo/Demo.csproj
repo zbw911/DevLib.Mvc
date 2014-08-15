@@ -231,6 +231,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\GetAllAdmins.cshtml" />
+    <Content Include="Views\Home\AddAdmin.cshtml" />
+    <Content Include="Views\Home\GetAllAdminsASync.cshtml" />
+    <Content Include="Views\Home\AddAdminASync.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -241,6 +245,20 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CompositionRootBase\CompositionRoot.csproj">
+      <Project>{3ec4cde1-853f-4bd0-8e53-176bf228afa1}</Project>
+      <Name>CompositionRoot</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{ad0bd4f3-f7f3-480e-98d1-835364068b3c}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{bea81b56-1470-4984-b015-9c4b202f1cfc}</Project>
+      <Name>Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

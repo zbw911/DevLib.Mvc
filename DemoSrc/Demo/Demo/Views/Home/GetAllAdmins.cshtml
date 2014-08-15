@@ -1,0 +1,11 @@
+﻿@model System.Collections.Generic.IEnumerable<Data.Models.Admin>
+
+@{
+    ViewBag.Title = "title";
+
+}
+
+@foreach (var admin in Model)
+{
+    <a> @admin.AdminId  </a><a> @admin.Uname  </a><br />
+}
