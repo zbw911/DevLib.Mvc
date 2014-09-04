@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev.CommonServiceLocator.NinjectAdapter</name>
+    </assembly>
+    <members>
+        <member name="T:Dev.CommonServiceLocator.NinjectAdapter.AdapterIniter">
+            <summary>
+            初始化
+            </summary>
+        </member>
+        <member name="M:Dev.CommonServiceLocator.NinjectAdapter.AdapterIniter.Do(Ninject.IKernel)">
+            <summary>
+            初始化
+            </summary>
+            <param name="kernel"></param>
+        </member>
+    </members>
+</doc>
